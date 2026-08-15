@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    /* --- File Layout & Build --- */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* --- Environment & Modules --- */
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "lib": ["ES2022"],
+
+    "types": ["node"],
+
+    /* --- Decorators for DI (tsyringe) --- */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* --- Type Checking --- */
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

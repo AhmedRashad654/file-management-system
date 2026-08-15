@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id                String              @id @default(uuid())
+  name              String
+  email             String              @unique
+  password          String
+  role              Role                @default(USER)
+  isVerified        Boolean             @default(false)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  folders           Folder[]
+  files             File[]
+  verificationCodes VerificationCode[]
+
+  @@map("users")
+}
+
+model VerificationCode {
+  id        String   @id @default(uuid())
+  code      String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("verification_codes")
+}
+
+model Folder {
+  id        String   @id @default(uuid())
+  name      String
+  parentId  String?
+  parent    Folder?  @relation("FolderToFolder", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Folder[] @relation("FolderToFolder")
+
+  files     File[]
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([parentId])
+  @@map("folders")
+}
+
+model File {
+  id          String   @id @default(uuid())
+  name        String
+  url         String
+  size        Int
+  mimeType    String
+
+  folderId    String?
+  folder      Folder?  @relation(fields: [folderId], references: [id], onDelete: SetNull)
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([folderId])
+  @@map("files")
+}
