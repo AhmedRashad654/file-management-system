@@ -18,7 +18,7 @@ export function errorHandler(
   if (statusCode >= 500) {
     logger.error(err.message, {
       statusCode,
-      // stack: err.stack,
+      stack: err.stack,
       path: req.path,
     });
   }
