@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Build outputs
+.next/
+dist/
+build/
+
+# Prisma generated client
+generated/
+
+# Uploaded files
+uploads/
+
+# IDE
+.vscode/
+.idea/
