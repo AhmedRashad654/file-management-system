@@ -8,3 +8,9 @@ export const AUTH_MESSAGES = {
   TOKEN_REFRESHED: "Token refreshed successfully",
   LOGGED_OUT: "Logged out successfully",
 } as const;
+
+export const USERS_MESSAGES = {
+  LISTED: "Users fetched successfully",
+  ROLE_UPDATED: "User role updated successfully",
+  DELETED: "User deleted successfully",
+} as const;
