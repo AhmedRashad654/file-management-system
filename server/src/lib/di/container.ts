@@ -11,6 +11,8 @@ import { FolderService } from "../../app/files/service/folder.service";
 import { FileService } from "../../app/files/service/file.service";
 import { FolderController } from "../../app/files/controller/folder.controller";
 import { FileController } from "../../app/files/controller/file.controller";
+import { StatisticsService } from "../../app/statistics/service/statistics.service";
+import { StatisticsController } from "../../app/statistics/controller/statistics.controller";
 
 // Lib/infra/
 container.registerSingleton<Logger>(TOKENS.Logger, Logger);
@@ -22,9 +24,11 @@ container.registerSingleton<AuthService>(TOKENS.AuthService, AuthService);
 container.registerSingleton<UsersService>(TOKENS.UsersService, UsersService);
 container.registerSingleton<FolderService>(TOKENS.FolderService, FolderService);
 container.registerSingleton<FileService>(TOKENS.FileService, FileService);
+container.registerSingleton<StatisticsService>(TOKENS.StatisticsService, StatisticsService);
 
 // Controllers
 container.registerSingleton<AuthController>(TOKENS.AuthController, AuthController);
 container.registerSingleton<UsersController>(TOKENS.UsersController, UsersController);
 container.registerSingleton<FolderController>(TOKENS.FolderController, FolderController);
 container.registerSingleton<FileController>(TOKENS.FileController, FileController);
+container.registerSingleton<StatisticsController>(TOKENS.StatisticsController, StatisticsController);

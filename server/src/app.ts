@@ -5,6 +5,7 @@ import helmet from "helmet";
 import cors from "cors";
 import { AppError } from "./common/errors/AppError.js";
 import { errorHandler } from "./common/middlewares/errorHandler.js";
+import { globalLimiter } from "./common/middlewares/rate-limiters.js";
 
 export function createApp() {
   const app = express();
@@ -17,6 +18,7 @@ export function createApp() {
   );
   app.use(express.json());
   app.use(cookieParser());
+  app.use(globalLimiter);
   app.use("/api/v1", routes);
   app.use((req: Request, _res: Response, next: NextFunction) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

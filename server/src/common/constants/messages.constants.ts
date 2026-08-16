@@ -23,7 +23,13 @@ export const FOLDERS_MESSAGES = {
 export const FILES_MESSAGES = {
   UPLOADED: "Files uploaded successfully",
   LISTED: "Files fetched successfully",
+  FETCHED: "File fetched successfully",
   DELETED: "File deleted successfully",
   ALL_LISTED: "All files fetched successfully",
   ADMIN_DELETED: "File deleted successfully",
+} as const;
+
+export const STATISTICS_MESSAGES = {
+  USER_FETCHED: "Statistics fetched successfully",
+  ADMIN_FETCHED: "Statistics fetched successfully",
 } as const;

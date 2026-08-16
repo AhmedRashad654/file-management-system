@@ -200,6 +200,17 @@ export class FileService {
     };
   };
 
+  get = async (userId: string, fileId: string): Promise<FileResult> => {
+    const file = await this.prisma.file.findFirst({
+      where: { id: fileId, userId },
+      select: { ...fileSelect, extractedContent: true },
+    });
+    if (!file) {
+      throw FileNotFoundError;
+    }
+    return file;
+  };
+
   remove = async (userId: string, fileId: string): Promise<void> => {
     const file = await this.prisma.file.findFirst({
       where: { id: fileId, userId },

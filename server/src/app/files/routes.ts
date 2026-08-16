@@ -20,6 +20,8 @@ export const filesRouter = Router();
 const fileCtrl = container.resolve<FileController>(TOKENS.FileController);
 
 filesRouter.get("/", authenticate, fileCtrl.list);
+filesRouter.get("/:id", authenticate, fileCtrl.get);
+
 filesRouter.post(
   "/upload",
   authenticate,

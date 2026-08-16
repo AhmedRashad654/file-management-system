@@ -13,6 +13,12 @@ export class FileController {
     @inject(TOKENS.FileService) private readonly fileService: FileService,
   ) {}
 
+  get = async (req: Request, res: Response) => {
+    const params = validate(FileParamsDTO, req.params);
+    const file = await this.fileService.get(req.userId!, params.id);
+    sendSuccess(res, file, FILES_MESSAGES.FETCHED);
+  };
+
   upload = async (req: Request, res: Response) => {
     const files = req.files as Express.Multer.File[] | undefined;
     const parentId = req.body.parentId as string | undefined;
