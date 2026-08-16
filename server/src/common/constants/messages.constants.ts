@@ -14,3 +14,16 @@ export const USERS_MESSAGES = {
   ROLE_UPDATED: "User role updated successfully",
   DELETED: "User deleted successfully",
 } as const;
+
+export const FOLDERS_MESSAGES = {
+  CREATED: "Folder created successfully",
+  DELETED: "Folder deleted successfully",
+} as const;
+
+export const FILES_MESSAGES = {
+  UPLOADED: "Files uploaded successfully",
+  LISTED: "Files fetched successfully",
+  DELETED: "File deleted successfully",
+  ALL_LISTED: "All files fetched successfully",
+  ADMIN_DELETED: "File deleted successfully",
+} as const;

@@ -12,25 +12,23 @@ datasource db {
   provider = "postgresql"
 }
 
-
 enum Role {
   USER
   ADMIN
 }
 
 model User {
-  id                String              @id @default(uuid())
+  id                String             @id @default(uuid())
   name              String
-  email             String              @unique
+  email             String             @unique
   password          String
-  role              Role                @default(USER)
-  isVerified        Boolean             @default(false)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-
+  role              Role               @default(USER)
+  isVerified        Boolean            @default(false)
   folders           Folder[]
   files             File[]
   verificationCodes VerificationCode[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
 
   @@map("users")
 }
@@ -53,12 +51,9 @@ model Folder {
   parentId  String?
   parent    Folder?  @relation("FolderToFolder", fields: [parentId], references: [id], onDelete: Cascade)
   children  Folder[] @relation("FolderToFolder")
-
   files     File[]
-
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -68,20 +63,19 @@ model Folder {
 }
 
 model File {
-  id          String   @id @default(uuid())
-  name        String
-  url         String
-  size        Int
-  mimeType    String
-
-  folderId    String?
-  folder      Folder?  @relation(fields: [folderId], references: [id], onDelete: SetNull)
-
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String   @id @default(uuid())
+  name             String
+  url              String
+  publicId         String?
+  size             Int
+  mimeType         String
+  extractedContent String?  @db.Text
+  folderId         String?
+  folder           Folder?  @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   @@index([userId])
   @@index([folderId])
