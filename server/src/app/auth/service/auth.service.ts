@@ -56,8 +56,6 @@ export class AuthService {
     });
 
     await this.sendVerificationCode(user.id, user.email);
-
-    return this.buildAuthResponse(user);
   };
 
   login = async (data: LoginDTO) => {
@@ -114,7 +112,7 @@ export class AuthService {
       this.prisma.verificationCode.deleteMany({ where: { userId: user.id } }),
     ]);
 
-    return { ...this.toSafeUser(user), isVerified: true };
+    return this.buildAuthResponse({ ...user, isVerified: true });
   };
 
   resendCode = async (data: ResendCodeDTO) => {

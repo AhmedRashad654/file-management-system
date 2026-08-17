@@ -24,9 +24,8 @@ export class AuthController {
 
   register = async (req: Request, res: Response) => {
     const data = validate(RegisterDTO, req.body);
-    const { refreshToken, ...result } = await this.authService.register(data);
-    this.setRefreshTokenCookie(res, refreshToken);
-    sendSuccess(res, result, AUTH_MESSAGES.REGISTERED, 201);
+    await this.authService.register(data);
+    sendSuccess(res, undefined, AUTH_MESSAGES.REGISTERED, 201);
   };
 
   login = async (req: Request, res: Response) => {
@@ -38,7 +37,8 @@ export class AuthController {
 
   verifyEmail = async (req: Request, res: Response) => {
     const data = validate(VerifyEmailDTO, req.body);
-    const result = await this.authService.verifyEmail(data);
+    const { refreshToken, ...result } = await this.authService.verifyEmail(data);
+    this.setRefreshTokenCookie(res, refreshToken);
     sendSuccess(res, result, AUTH_MESSAGES.VERIFIED);
   };
 

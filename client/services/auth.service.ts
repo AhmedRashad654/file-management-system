@@ -23,18 +23,18 @@ export interface ResendCodeData {
 
 export const authService = {
   register: async (data: RegisterData) => {
-    const res = await apiClient.post<ApiResponse<AuthResponse>>("/auth/register", data);
-    return res.data.data;
+    const res = await apiClient.post<ApiResponse<null>>("/auth/register", data);
+    return res.data;
   },
 
   login: async (data: LoginData) => {
     const res = await apiClient.post<ApiResponse<AuthResponse>>("/auth/login", data);
-    return res.data.data;
+    return res.data;
   },
 
   verifyEmail: async (data: VerifyEmailData) => {
-    const res = await apiClient.post<ApiResponse<SafeUser>>("/auth/verify-email", data);
-    return res.data.data;
+    const res = await apiClient.post<ApiResponse<AuthResponse>>("/auth/verify-email", data);
+    return res.data;
   },
 
   resendCode: async (data: ResendCodeData) => {

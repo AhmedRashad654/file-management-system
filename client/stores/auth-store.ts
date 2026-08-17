@@ -8,6 +8,7 @@ interface AuthState {
 
   setAuth: (user: SafeUser, accessToken: string) => void;
   setAccessToken: (token: string) => void;
+  updateUser: (partial: Partial<SafeUser>) => void;
   clearSession: () => void;
 }
 
@@ -21,6 +22,11 @@ export const useAuthStore = create<AuthState>()((set) => ({
   },
 
   setAccessToken: (token) => set({ accessToken: token }),
+
+  updateUser: (partial) =>
+    set((state) => ({
+      user: state.user ? { ...state.user, ...partial } : null,
+    })),
 
   clearSession: () => {
     set({ user: null, accessToken: null, isAuthenticated: false });
