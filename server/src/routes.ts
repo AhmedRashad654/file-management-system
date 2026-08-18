@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { healthRouter } from './app/health/health.routes';
-import { authRouter } from './app/auth/routes';
-import { usersRouter } from './app/users/routes';
-import { filesRouter, foldersRouter } from './app/files/routes';
-import { statisticsRouter } from './app/statistics/routes';
+import { healthRouter } from './app/health/health.routes.js';
+import { authRouter } from './app/auth/routes.js';
+import { usersRouter } from './app/users/routes.js';
+import { filesRouter, foldersRouter } from './app/files/routes.js';
+import { statisticsRouter } from './app/statistics/routes.js';
 
 export const routes = Router();
 

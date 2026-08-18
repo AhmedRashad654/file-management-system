@@ -2,9 +2,9 @@ import "dotenv/config";
 import "reflect-metadata";
 import "./lib/di/container.js";
 import { container } from "tsyringe";
-import { Logger } from "./common/logger/logger";
-import { TOKENS } from "./lib/di/tokens";
-import { createApp } from "./app";
+import { Logger } from "./common/logger/logger.js";
+import { TOKENS } from "./lib/di/tokens.js";
+import { createApp } from "./app.js";
 import type { Server } from "http";
 import { prisma } from "./lib/db/prisma.js";
 

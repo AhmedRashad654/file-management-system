@@ -1,18 +1,18 @@
 import { container } from "tsyringe";
-import { TOKENS } from "./tokens";
-import { Logger } from "../../common/logger/logger";
-import { prisma } from "../db/prisma";
-import { MailjetEmailProvider } from "../email/mailjet";
-import { AuthService } from "../../app/auth/service/auth.service";
-import { AuthController } from "../../app/auth/controller/auth.controller";
-import { UsersService } from "../../app/users/service/users.service";
-import { UsersController } from "../../app/users/controller/users.controller";
-import { FolderService } from "../../app/files/service/folder.service";
-import { FileService } from "../../app/files/service/file.service";
-import { FolderController } from "../../app/files/controller/folder.controller";
-import { FileController } from "../../app/files/controller/file.controller";
-import { StatisticsService } from "../../app/statistics/service/statistics.service";
-import { StatisticsController } from "../../app/statistics/controller/statistics.controller";
+import { TOKENS } from "./tokens.js";
+import { Logger } from "../../common/logger/logger.js";
+import { prisma } from "../db/prisma.js";
+import { MailjetEmailProvider } from "../email/mailjet.js";
+import { AuthService } from "../../app/auth/service/auth.service.js";
+import { AuthController } from "../../app/auth/controller/auth.controller.js";
+import { UsersService } from "../../app/users/service/users.service.js";
+import { UsersController } from "../../app/users/controller/users.controller.js";
+import { FolderService } from "../../app/files/service/folder.service.js";
+import { FileService } from "../../app/files/service/file.service.js";
+import { FolderController } from "../../app/files/controller/folder.controller.js";
+import { FileController } from "../../app/files/controller/file.controller.js";
+import { StatisticsService } from "../../app/statistics/service/statistics.service.js";
+import { StatisticsController } from "../../app/statistics/controller/statistics.controller.js";
 
 // Lib/infra/
 container.registerSingleton<Logger>(TOKENS.Logger, Logger);

@@ -1,9 +1,10 @@
-import Mailjet from "node-mailjet";
+import MailjetPkg from "node-mailjet";
+const Mailjet = MailjetPkg as any;
 import { inject, injectable } from "tsyringe";
-import { TOKENS } from "../di/tokens";
-import { Logger } from "../../common/logger/logger";
-import { AppError } from "../../common/errors/AppError";
-import { requireEnv } from "../../utils/requireEnv";
+import { TOKENS } from "../di/tokens.js";
+import { Logger } from "../../common/logger/logger.js";
+import { AppError } from "../../common/errors/AppError.js";
+import { requireEnv } from "../../utils/requireEnv.js";
 
 @injectable()
 export class MailjetEmailProvider {
