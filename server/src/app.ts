@@ -6,13 +6,14 @@ import cors from "cors";
 import { AppError } from "./common/errors/AppError.js";
 import { errorHandler } from "./common/middlewares/errorHandler.js";
 import { globalLimiter } from "./common/middlewares/rate-limiters.js";
+import { requireEnv } from "./utils/requireEnv.js";
 
 export function createApp() {
   const app = express();
   app.use(helmet());
   app.use(
     cors({
-      origin: process.env.CLIENT_URL || "http://localhost:3000",
+      origin: requireEnv("CLIENT_URL"),
       credentials: true,
     }),
   );
