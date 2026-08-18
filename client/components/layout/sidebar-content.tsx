@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuthStore } from "@/stores/auth-store";
 import { Separator } from "@/components/ui/separator";
-import { Files, LayoutDashboard, Shield, LogOut, UserShield, BarChart3 } from "lucide-react";
+import { Files, LayoutDashboard, Shield, LogOut, UserShield, BarChart3, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLogout } from "@/hooks/auth/use-logout";
 import { ModeToggle } from "./mode-toggle";
@@ -17,6 +17,7 @@ const NAV_ITEMS = [
 const ADMIN_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/files", label: "All Files", icon: Shield },
+  { href: "/admin/users", label: "Users", icon: Users },
 ] as const;
 
 export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
@@ -89,7 +90,6 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       <div className="space-y-1 p-2">
         <div className="flex items-center gap-2 px-3 py-1.5">
           <ModeToggle />
-          <span className="text-sm font-medium text-muted-foreground">Theme</span>
         </div>
         <Link
           href="/profile"

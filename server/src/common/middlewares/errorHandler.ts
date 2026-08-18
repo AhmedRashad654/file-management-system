@@ -24,6 +24,7 @@ export function errorHandler(
   }
 
   if (statusCode === 400) {
+    console.log("400 error:", err.stack);
     logger.warn(err.message, {
       statusCode,
       path: req.path,

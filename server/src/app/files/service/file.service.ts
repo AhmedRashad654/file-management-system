@@ -227,7 +227,6 @@ export class FileService {
     query: ListAllFilesQueryDTO,
   ): Promise<ListAllFilesResult> => {
     const { page, limit, search, sort, order, type } = query;
-
     const where: Prisma.FileWhereInput = {
       ...(search
         ? {

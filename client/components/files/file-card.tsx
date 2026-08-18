@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Download, Eye, MoreVertical, Trash2 } from "lucide-react";
 import type { FileResult } from "@/lib/api-types";
-import { formatDate, formatSize, getFileColor, getFileIcon } from "@/utils";
+import { formatDate, formatSize, getFileColor, getFileIcon, handleDownloadFile } from "@/utils";
 
 type ViewMode = "grid" | "list";
 
@@ -19,7 +19,6 @@ interface FileCardProps {
   file: FileResult;
   viewMode: ViewMode;
   onPreview: (file: FileResult) => void;
-  onDownload: (file: FileResult) => void;
   onDelete: (file: FileResult) => void;
 }
 
@@ -27,7 +26,6 @@ export function FileCard({
   file,
   viewMode,
   onPreview,
-  onDownload,
   onDelete,
 }: FileCardProps) {
   const Icon = getFileIcon(file.mimeType);
@@ -59,7 +57,7 @@ export function FileCard({
         <DropdownMenuItem
           onClick={(e) => {
             e.stopPropagation();
-            onDownload(file);
+            handleDownloadFile(file.url, file.name);
           }}
         >
           <Download className="h-4 w-4 mr-2" />

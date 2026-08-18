@@ -98,7 +98,7 @@ export interface AdminStats {
   recentUploads: RecentUpload[];
 }
 
-export type FileType = "image" | "pdf" | "doc" | "text" | "video" | "audio" | "other";
+export type FileType = "image" | "pdf" | "doc" | "text" | "video" | "audio" | "other" | "";
 
 export type FileSortField = "name" | "createdAt" | "size";
 export type SortOrder = "asc" | "desc";

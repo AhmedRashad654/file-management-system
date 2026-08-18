@@ -95,7 +95,7 @@ export const filesService = {
     params: ListAllFilesParams,
   ): Promise<ListAllFilesApiResult> => {
     const res = await apiClient.get<ApiResponse<AdminFileResult[]>>(
-      "/files/admin",
+      "/files/admin/all",
       {
         params,
       },
@@ -106,19 +106,5 @@ export const filesService = {
   removeAny: async (id: string) => {
     const res = await apiClient.delete<ApiResponse<null>>(`/files/admin/${id}`);
     return res.data;
-  },
-
-  rename: async (id: string, name: string): Promise<FileResult> => {
-    const res = await apiClient.patch<ApiResponse<FileResult>>(`/files/${id}`, {
-      name,
-    });
-    return res.data.data;
-  },
-
-  move: async (id: string, parentId: string | null): Promise<FileResult> => {
-    const res = await apiClient.patch<ApiResponse<FileResult>>(`/files/${id}`, {
-      parentId,
-    });
-    return res.data.data;
   },
 };

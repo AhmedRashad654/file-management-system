@@ -80,26 +80,6 @@ export function FileBrowser({ folderId }: { folderId?: string }) {
   const isEmpty = folders.length === 0 && files.length === 0;
   const hasSearch = debouncedSearch.length > 0 || typeFilter.length > 0;
 
-  const handleDownloadFile = async (file: FileResult) => {
-    try {
-      const response = await fetch(file.url);
-      const blob = await response.blob();
-
-      const blobUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.download = file.name;
-
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(blobUrl);
-    } catch {
-      window.open(file.url, "_blank");
-    }
-  };
-
   const handleNavigate = (folderId: string | null) => {
     if (folderId === null) {
       router.push("/files");
@@ -158,7 +138,6 @@ export function FileBrowser({ folderId }: { folderId?: string }) {
               file={file}
               viewMode={viewMode}
               onPreview={setPreviewFile}
-              onDownload={handleDownloadFile}
               onDelete={(f) => setDeleteItem({ item: f, type: "file" })}
             />
           ))}
@@ -235,7 +214,6 @@ export function FileBrowser({ folderId }: { folderId?: string }) {
           if (!open) setPreviewFile(null);
         }}
         file={previewFile}
-        onDownload={handleDownloadFile}
         onDelete={(f) => {
           setPreviewFile(null);
           setDeleteItem({ item: f, type: "file" });

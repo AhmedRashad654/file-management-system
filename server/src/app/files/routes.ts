@@ -1,9 +1,6 @@
 import { Router } from "express";
 import { container } from "tsyringe";
-import {
-  authenticate,
-  requireRole,
-} from "../../common/middlewares/protect.js";
+import { authenticate, requireRole } from "../../common/middlewares/protect.js";
 import { Role } from "../../generated/prisma/enums.js";
 import { TOKENS } from "../../lib/di/tokens.js";
 import { FileController } from "./controller/file.controller.js";
@@ -31,7 +28,7 @@ filesRouter.post(
 filesRouter.delete("/:id", authenticate, fileCtrl.remove);
 
 filesRouter.get(
-  "/admin",
+  "/admin/all",
   authenticate,
   requireRole(Role.ADMIN),
   fileCtrl.listAll,

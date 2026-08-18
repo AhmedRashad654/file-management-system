@@ -19,9 +19,9 @@ export const usersService = {
     return { data: res.data.data, meta: res.data.meta! };
   },
 
-  updateRole: async (id: string, role: Role): Promise<SafeUser> => {
+  updateRole: async (id: string, role: Role) => {
     const res = await apiClient.patch<ApiResponse<SafeUser>>(`/users/${id}/role`, { role });
-    return res.data.data;
+    return res.data;
   },
 
   remove: async (id: string) => {
