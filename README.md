@@ -206,6 +206,25 @@ npm run dev
 The client starts at `http://localhost:3000`.
 
 
+## Deployment
+
+The application is deployed and publicly accessible:
+
+- **Frontend (Vercel):** https://filemanagement.ahmedrashad.online/
+- **Backend API (Render):** https://filemanagementapi.ahmedrashad.online/api/v1
+
+### Demo Credentials
+
+An admin account is pre-seeded for testing admin features:
+
+| Field | Value |
+|---|---|
+| Email | `admin@example.com` |
+| Password | `Admin123` |
+
+You can also register a new account to test the regular user flow (registration, email verification, file management).
+
+
 ### General Notes
 
 - The server handles graceful shutdown on `SIGINT` and `SIGTERM` signals.
@@ -267,6 +286,14 @@ All endpoints are prefixed with `/api/v1`.
 |---|---|---|---|
 | GET | `/statistics/me` | Bearer JWT | Current user's statistics |
 | GET | `/statistics/admin` | Bearer JWT + ADMIN | System-wide statistics |
+
+## Bonus Features Implemented
+
+- **Dark Mode** — Full light/dark/system theme support via `next-themes`, toggleable from the header.
+- **Folder Management** — Nested folder creation and navigation (folders can contain subfolders and files).
+- **File/Image Preview** — In-app preview for supported file types (PDF, Image, Video, Audio, extracted document content) without downloading.
+- **Download Files** — Direct download for all uploaded files.
+- **Refresh Token Authentication** — Short-lived access tokens (15 min) paired with long-lived refresh tokens (7 days, httpOnly cookie) for secure session persistence without storing sensitive tokens in browser storage.
 
 ## Assumptions
 - **Email Verification:** Verification emails sent via Mailjet might land in your **Spam** . Please check your spam folder if you do not see the email in your inbox.
