@@ -7,9 +7,9 @@ export interface CreateFolderData {
 }
 
 export const foldersService = {
-  create: async (data: CreateFolderData): Promise<FolderResult> => {
+  create: async (data: CreateFolderData) => {
     const res = await apiClient.post<ApiResponse<FolderResult>>("/folders", data);
-    return res.data.data;
+    return res.data;
   },
 
   remove: async (id: string) => {

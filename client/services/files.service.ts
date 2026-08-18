@@ -49,19 +49,41 @@ export const filesService = {
   },
 
   get: async (id: string): Promise<FileWithContent> => {
-    const res = await apiClient.get<ApiResponse<FileWithContent>>(`/files/${id}`);
+    const res = await apiClient.get<ApiResponse<FileWithContent>>(
+      `/files/${id}`,
+    );
     return res.data.data;
   },
 
-  upload: async (files: File[], parentId?: string): Promise<FileResult[]> => {
+  upload: async (
+    files: File[],
+    parentId?: string,
+    onUploadProgress?: (progressEvent: {
+      loaded: number;
+      total?: number;
+    }) => void,
+  ) => {
     const formData = new FormData();
     files.forEach((file) => formData.append("files", file));
     if (parentId) formData.append("parentId", parentId);
+    const manualTotal = files.reduce((acc, file) => acc + file.size, 0);
 
-    const res = await apiClient.post<ApiResponse<FileResult[]>>("/files/upload", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    return res.data.data;
+    const res = await apiClient.post<ApiResponse<FileResult[]>>(
+      "/files/upload",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+        onUploadProgress: (progressEvent) => {
+          if (onUploadProgress) {
+            onUploadProgress({
+              loaded: progressEvent.loaded,
+              total: progressEvent.total || manualTotal,
+            });
+          }
+        },
+      },
+    );
+    return res.data;
   },
 
   remove: async (id: string) => {
@@ -69,15 +91,34 @@ export const filesService = {
     return res.data;
   },
 
-  listAll: async (params: ListAllFilesParams): Promise<ListAllFilesApiResult> => {
-    const res = await apiClient.get<ApiResponse<AdminFileResult[]>>("/files/admin", {
-      params,
-    });
+  listAll: async (
+    params: ListAllFilesParams,
+  ): Promise<ListAllFilesApiResult> => {
+    const res = await apiClient.get<ApiResponse<AdminFileResult[]>>(
+      "/files/admin",
+      {
+        params,
+      },
+    );
     return { data: res.data.data, meta: res.data.meta! };
   },
 
   removeAny: async (id: string) => {
     const res = await apiClient.delete<ApiResponse<null>>(`/files/admin/${id}`);
     return res.data;
+  },
+
+  rename: async (id: string, name: string): Promise<FileResult> => {
+    const res = await apiClient.patch<ApiResponse<FileResult>>(`/files/${id}`, {
+      name,
+    });
+    return res.data.data;
+  },
+
+  move: async (id: string, parentId: string | null): Promise<FileResult> => {
+    const res = await apiClient.patch<ApiResponse<FileResult>>(`/files/${id}`, {
+      parentId,
+    });
+    return res.data.data;
   },
 };
