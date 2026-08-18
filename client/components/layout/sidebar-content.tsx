@@ -4,12 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuthStore } from "@/stores/auth-store";
 import { Separator } from "@/components/ui/separator";
-import { Files, LayoutDashboard, Shield, LogOut, UserShield } from "lucide-react";
+import { Files, LayoutDashboard, Shield, LogOut, UserShield, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLogout } from "@/hooks/auth/use-logout";
 import { ModeToggle } from "./mode-toggle";
 
-const NAV_ITEMS = [{ href: "/files", label: "My Files", icon: Files }] as const;
+const NAV_ITEMS = [
+  { href: "/files", label: "My Files", icon: Files },
+  { href: "/statistics", label: "Statistics", icon: BarChart3 },
+] as const;
 
 const ADMIN_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },

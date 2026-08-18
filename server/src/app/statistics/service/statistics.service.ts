@@ -68,9 +68,9 @@ export class StatisticsService {
     @inject(TOKENS.PrismaClient) private readonly prisma: PrismaClient,
   ) {}
 
-  getUserStats = async (userId: string, period: number): Promise<UserStats> => {
+  getUserStats = async (userId: string): Promise<UserStats> => {
     const since = new Date();
-    since.setDate(since.getDate() - period);
+    since.setDate(since.getDate() - 7); // last 7 days
 
     const [totalFiles, storageAgg, totalFolders, typeGroups, rawHistory] =
       await Promise.all([
@@ -102,7 +102,7 @@ export class StatisticsService {
       totalFolders,
       storageUsed: storageAgg._sum.size ?? 0,
       fileTypeDistribution: buildDistribution(typeGroups),
-      uploadHistory: fillUploadHistory(rawHistory, period),
+      uploadHistory: fillUploadHistory(rawHistory, 7),
     };
   };
 
