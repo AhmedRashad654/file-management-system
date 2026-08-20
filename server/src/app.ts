@@ -10,6 +10,7 @@ import { requireEnv } from "./utils/requireEnv.js";
 
 export function createApp() {
   const app = express();
+  app.use(globalLimiter);
   app.use(helmet());
   app.use(
     cors({
@@ -19,7 +20,7 @@ export function createApp() {
   );
   app.use(express.json());
   app.use(cookieParser());
-  app.use(globalLimiter);
+  app.set("trust proxy", 1);
   app.use("/api/v1", routes);
   app.use((req: Request, _res: Response, next: NextFunction) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
